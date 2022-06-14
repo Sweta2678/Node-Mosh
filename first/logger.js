@@ -1,20 +1,22 @@
-const EventEmitter = require('events'); 
-const emitter = new EventEmitter();
+const EventEmitter = require('events');
 
 console.log(__filename);
 console.log(__dirname);
 
-var url ='http://mylogger.io/org/';
+var url = 'http://mylogger.io/org/';
 
-function log(message){
-    //send an HTTP request.
-    console.log(message);
+class Logger extends EventEmitter {
+    log(message) { //inside class we do not need function prefix
+        //send an HTTP request.
+        console.log(message);
+
+        this.emit('messageLogged', {
+            id: 1,
+            url: 'https://google.com'
+        });
+    }
 }
 
-emitter.emit('messageLogged', {
-    id: 1,
-    url: 'https://google.com'
-});
 
 //export - to make it public
 //syntax - module.export.functionName or functionalityName  =  methodName 
@@ -23,4 +25,4 @@ emitter.emit('messageLogged', {
 //module.exports.log = log; //it is for the each and every function we want to export
 
 //but if there is only one method and we are exporting then,
-module.exports = log;
+module.exports = Logger;

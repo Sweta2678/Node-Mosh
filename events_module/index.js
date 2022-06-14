@@ -1,7 +1,6 @@
 const EventEmitter = require('events'); //EventEmitter is class thats why E is capital.
 
-//to use EventEmitter elated methods or memeber we have to create it's instance.
-const emitter = new EventEmitter(); //emitter is object. 
+//to use EventEmitter related methods or memeber we have to create it's instance.
 
 //order matters here -  fisrt have to register listener and then raise an event.
 //Register Listener -- 
@@ -11,12 +10,15 @@ const emitter = new EventEmitter(); //emitter is object.
 // })
 
 //ECMA6 , array function
-emitter.on('messageLogged',(arg)=>{ //pass defined argument here as arg, e, eventArg .. name doesn't matter
+
+const Logger = require('../first/logger');
+const logger  = new Logger();
+
+logger.on('messageLogged',(arg)=>{
     console.log('Listener Called',arg);
 })
 
-const log = require('../first/logger');
-log('message'); // event doesn't called coz both listener and raise has different objects.
+logger.log('message');
 
 
 //Raise an event
