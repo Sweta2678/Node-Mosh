@@ -1,0 +1,1 @@
+console.log(module); //just run and check its properties
