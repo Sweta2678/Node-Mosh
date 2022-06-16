@@ -1,5 +1,5 @@
 !/npm-demo/**
-/npm-demo/node_modules/*
+/npm-demo/node_modules/**
 
 !/node-custome-package-import-demo/**
 /node-custome-package-import-demo/node_modules/*
