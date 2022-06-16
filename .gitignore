@@ -3,3 +3,6 @@
 
 !/node-custome-package-import-demo/**
 /node-custome-package-import-demo/node_modules/*
+
+!/express-demo/**
+/express-demo/node_modules/*
