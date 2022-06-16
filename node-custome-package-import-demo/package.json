@@ -1,5 +1,5 @@
 {
-  "name": "npm-demo",
+  "name": "custome-package-import-demo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,10 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^6.3.8",
-    "underscore": "^1.13.4"
-  },
-  "devDependencies": {
-    "jshint": "^2.13.4"
+    "lion-lib-sweta": "^1.0.1"
   }
 }
