@@ -5,18 +5,22 @@ const authentication = require('./authentication');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
-
-
 const app = express();
 
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`); //environment variable // we can set environment variable using cmd - set NODE_ENV=production
+console.log(`app: ${app.get('env')}`); //environment variable 
 
 app.use(express.json());
-app.use(logger);
+app.use(logger);        
 app.use(authentication);
 app.use(express.urlencoded()); //it is traditional approach. we can pass parasm in post request with the x-www-form-urlencoded in body.
 app.use(express.static('public'));
 app.use(helmet());
-app.use(morgan('tiny')); //it log every request.
+
+if(app.get('env') === 'development'){
+    app.use(morgan('tiny')); //it log every request.
+    console.log('Morgan Enabled');
+}
 
 
 let courses = [{
