@@ -2,6 +2,10 @@ const Joi = require('joi');
 const express = require('express');
 const logger = require('./logger');
 const authentication = require('./authentication');
+const helmet = require('helmet');
+const morgan = require('morgan');
+
+
 
 const app = express();
 
@@ -11,6 +15,9 @@ app.use(logger);
 app.use(authentication);
 app.use(express.urlencoded()); //it is traditional approach. we can pass parasm in post request with the x-www-form-urlencoded in body.
 app.use(express.static('public'));
+app.use(helmet());
+app.use(morgan('tiny')); //it log every request.
+
 
 let courses = [{
         id: 1,
