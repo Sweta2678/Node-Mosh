@@ -1,8 +1,16 @@
 const Joi = require('joi');
 const express = require('express');
+const logger = require('./logger');
+const authentication = require('./authentication');
+
 const app = express();
 
+
 app.use(express.json());
+app.use(logger);
+app.use(authentication);
+app.use(express.urlencoded()); //it is traditional approach. we can pass parasm in post request with the x-www-form-urlencoded in body.
+app.use(express.static('public'));
 
 let courses = [{
         id: 1,
@@ -83,7 +91,7 @@ function validateCourse(course) {
     const schema = Joi.object({
         name: Joi.string().min(3).required()
     });
-    return schema.validate(course);;
+    return schema.validate(course);
 }
 
 var port = process.env.PORT || 3000;

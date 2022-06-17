@@ -6,3 +6,6 @@
 
 !/express-demo/**
 /express-demo/node_modules/*
+
+!/vidly/**
+/vidly/node_modules/*
