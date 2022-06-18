@@ -4,7 +4,8 @@ const logger = require('./logger');
 const authentication = require('./authentication');
 const helmet = require('helmet');
 const morgan = require('morgan');
-
+const config = require('config');
+//npm rc and config both for configuration
 const app = express();
 
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`); //environment variable // we can set environment variable using cmd - set NODE_ENV=production
@@ -17,11 +18,20 @@ app.use(express.urlencoded()); //it is traditional approach. we can pass parasm 
 app.use(express.static('public'));
 app.use(helmet());
 
+//console. log(process. env);
+
+//Configuration
+//to set environment cmd = set NODE_ENV = production
+//to set any env vriable cmd = set app_password = 1234
+console.log('Application Name...'+config.get('name'));
+console.log('Mail Server...'+config.get('mail.host'));
+console.log('Mail password...'+config.get('mail.password'));
+
+
 if(app.get('env') === 'development'){
     app.use(morgan('tiny')); //it log every request.
     console.log('Morgan Enabled');
 }
-
 
 let courses = [{
         id: 1,
