@@ -4,8 +4,18 @@ const logger = require('./logger');
 const authentication = require('./authentication');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const config = require('config');
 //npm rc and config both for configuration
+const config = require('config');
+//need to set at environement to enable-  export/set DEBUG=app:startup
+//to disable - set DEBUG=               //leave it blank after =.
+//set multiple - set DEBUG=app:startup,app:db
+//to set all debugger - set DEBUG=app:* 
+
+//run application with debug mode in single line -  DEBUG=app:db nodemon index
+//const startupDebugger = require('debug')('app:startup');
+//const dbDebugger = require('debug')('app:db');
+const debug = require('debug')('app:startup');
+
 const app = express();
 
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`); //environment variable // we can set environment variable using cmd - set NODE_ENV=production
@@ -30,8 +40,12 @@ console.log('Mail password...'+config.get('mail.password'));
 
 if(app.get('env') === 'development'){
     app.use(morgan('tiny')); //it log every request.
-    console.log('Morgan Enabled');
+    //startupDebugger('Morgan Enabled...');
+    debug('Morgan Enabled...');
 }
+
+//Db work 
+//dbDebugger('Connected to database');
 
 let courses = [{
         id: 1,
