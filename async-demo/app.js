@@ -11,8 +11,7 @@ function displayCommits(commits){
 }
 
 function getCommits(repos){
-    console.log(repos);
-    //getCommits(repos,displayCommits);
+    getCommits(repos,displayCommits);
 }
 
 function getUser(id,callback){
