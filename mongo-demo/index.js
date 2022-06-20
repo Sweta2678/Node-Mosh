@@ -26,32 +26,14 @@ async function createCourse(){
     console.log('Result' + result);
 }
 async function getCourses(){
+    const pageNumber = 2 ;
+    const pageSize =10;
     const courses = await Course
-        //comparison in query
         .find({author:'Mosh',isPublished:true})
-        //.find({price:{$gte  :10 }})
-        //.find({price:{$gte  :10 , $lte:15}})
-        //.find({price:{$in : [10,15,20]}})
-
-        //logical operators
-        // .find()
-        // .or([{author:'Mosh'},{isPublished:true}])
-        // .and([{author:'Mosh'},{isPublished:true}])
-
-        //regular expression 
-        //starts with Mosh
-        //.find({author:'/^Mosh/'})
-
-        //ends with khatsuriya
-        //.find({author:'/khatsuriya$/i'}) // i for case in sensitive
-
-        //contains Mosh
-        //.find({author:'/.*Mosh.*/'})
-        .limit(10)
+        .skip((pageNumber-1)*pageSize)
+        .limit(pageSize)
         .sort({name:1})
-        //counting
-        .count();
-       // .select({name:1,tags:1});
+        .select({name:1,tags:1});
     console.log(courses);
 }
 
