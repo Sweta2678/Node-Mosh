@@ -9,3 +9,6 @@
 
 !/vidly/**
 /vidly/node_modules/*
+
+!/mongo-demo/**
+/mongo-demo/node_modules/*
