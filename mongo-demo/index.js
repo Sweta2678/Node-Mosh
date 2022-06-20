@@ -2,40 +2,100 @@ const mongoose = require('mongoose');
 
 
 mongoose.connect('mongodb://localhost/playground')
-.then(()=> console.log('Connected to MongoDb'))
-.catch((err)=> console.log('could not connect',err));
+    .then(() => console.log('Connected to MongoDb'))
+    .catch((err) => console.log('could not connect', err));
 
 
 const courseSchema = new mongoose.Schema({
-    name :String,
-    author : String,
-    tags : [String],
-    date : { type: Date , default : Date.now},
-    isPublished : Boolean
+    name: String,
+    author: String,
+    tags: [String],
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    isPublished: Boolean
 });
-const Course  = mongoose.model('Course',courseSchema);
+const Course = mongoose.model('Course', courseSchema);
 
-async function createCourse(){
-    const course  = new Course({
-        name : 'Angular course',
-        author:'Mosh',
-        tags : ['angular','frontend'],
+async function createCourse() {
+    const course = new Course({
+        name: 'Node course',
+        author: 'Sweta',
+        tags: ['node', 'backend'],
         isPublished: true
     });
     const result = await course.save();
     console.log('Result' + result);
 }
-async function getCourses(){
-    const pageNumber = 2 ;
-    const pageSize =10;
+async function getCourses() {
+    const pageNumber = 2;
+    const pageSize = 10;
     const courses = await Course
-        .find({author:'Mosh',isPublished:true})
-        .skip((pageNumber-1)*pageSize)
+        .find({
+            author: 'Mosh',
+            isPublished: true
+        })
+        .skip((pageNumber - 1) * pageSize)
         .limit(pageSize)
-        .sort({name:1})
-        .select({name:1,tags:1});
+        .sort({
+            name: 1
+        })
+        .select({
+            name: 1,
+            tags: 1
+        });
     console.log(courses);
 }
 
+//approach-1
+// async function updateCourses(id){
+//     const course = await Course.findById(id);
+//     if(!course) return;
+
+//     course.isPublished = true;
+//     course.author = 'Another Author';
+
+//     // course.set({
+//     //     isPublished:true,
+//     //     author:'Another Author'
+//     // });
+
+//     const result = await course.save();
+//     console.log(result);
+// }
+
+
+//approach-2
+async function updateCourses(id) {
+    const result = await Course.update(
+        {_id: id}, 
+        {
+            $set: {
+                author: 'Mosh',
+                isPublished: false
+            }
+        });
+
+    console.log(result);
+}
+
+//
+async function updateCourse(id) {
+    const result = await Course.findByIdAndUpdate(
+        id, 
+        {
+            $set: {
+                author: 'Shweta Khatsuriya',
+                isPublished: true
+            }
+        },{new:true});
+
+    console.log(result);
+}
+
 //createCourse();
-getCourses();
+//getCourses();
+
+//updateCourses('62b03382e9b2fb1d002df98c');
+updateCourse('62b03382e9b2fb1d002df98c');
