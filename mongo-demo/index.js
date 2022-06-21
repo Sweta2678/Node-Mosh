@@ -29,7 +29,7 @@ const courseSchema = new mongoose.Schema({
                         //Do some Async work
                         const result = v && v.length>0;
                         callback(result);
-                    },4000);
+                    },2000);
                 },
             message:'Course should have atleast one tag'
         }
@@ -44,7 +44,6 @@ const courseSchema = new mongoose.Schema({
         required: function() {return this.isPublished; },
         min:10,
         max:100
-
     }
 });
 const Course = mongoose.model('Course', courseSchema);
@@ -52,7 +51,7 @@ const Course = mongoose.model('Course', courseSchema);
 async function createCourse() {
     const course = new Course({
         name: 'Node course',
-        category:'web',
+        category:'-',
         author: 'Sweta',
         tags: [],
         isPublished: true,
@@ -64,7 +63,8 @@ async function createCourse() {
         console.log('Result' + result);
     }
     catch(ex){
-        console.log(ex.message);
+        for (field in ex.errors)
+            console.log(ex.errors[field].message);
     }
     
 }
