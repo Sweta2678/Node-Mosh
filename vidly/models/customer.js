@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
-const customerSchema = mongoose.Schema({
+const customerSchema = new mongoose.Schema({
     isGold: {
         type:Boolean,
         required: false
