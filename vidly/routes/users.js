@@ -1,4 +1,6 @@
+const config = require('config');
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const {User,validate} = require('../models/user');
 const _ = require('lodash');
@@ -25,8 +27,10 @@ router.post('/',async (req,res)=>{
     user.password = await bcrypt.hash(user.password,salt);
     await user.save();
 
+    const token = jwt.sign({_id:user._id},config.get('jwtPrivateKey')); 
+
     //_.pick(user,['name','email']);
-    res.send(_.pick(user,['_id','name','email']));
+    res.header('x-auth-token',token).send(_.pick(user,['_id','name','email']));
 });
 
 //password complexity - joi-password-complexity
