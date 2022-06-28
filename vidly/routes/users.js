@@ -1,11 +1,18 @@
 const express = require('express');
+const auth  = require('../middleware/auth'); // for authorization
 const mongoose = require('mongoose');
 const {User,validate} = require('../models/user');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
+const { route } = require('./genres');
 const router = express.Router();
 
 router.use(express.json());
+
+router.get('/me',auth,async(req,res)=>{
+    const user = await User.findById(req.user._id).select('-password');
+    res.send(user);
+});
 
 router.post('/',async (req,res)=>{
     const {error} = validate(req.body);
