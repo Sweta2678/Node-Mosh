@@ -7,10 +7,14 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.get('/',async (req,res)=>{
-    const genres = await Genre.find().sort('name');
-    if(!genres.length>0) return res.status(404).send('No genre definded...');
-    res.send(genres);
+router.get('/',async (req,res,next)=>{
+    try{
+        const genres = await Genre.find().sort('name');
+        if(!genres.length>0) return res.status(404).send('No genre definded...');
+        res.send(genres);
+    }catch(ex){
+        next(ex);
+    }
     //res.end();
 });
 
