@@ -43,7 +43,7 @@ app.use('/',home);
 //to set any env vriable cmd = set app_password = 1234
 console.log('Application Name...'+config.get('name'));
 console.log('Mail Server...'+config.get('mail.host'));
-console.log('Mail password...'+config.get('mail.password'));
+//console.log('Mail password...'+config.get('mail.password'));
 
 
 if(app.get('env') === 'development'){

@@ -45,6 +45,15 @@ router.get('/:id', (req, res) => {
     res.send(course);
 });
 
+router.get('/name/:name', (req, res) => {
+    //res.send(req.params.id);
+    console.log(req.params.name);
+    let course = courses.find(c => c.name === req.params.name);
+    if (!course) res.status(404).send(`Record for given Name not available.`);
+    res.send(course);
+});
+
+
 
 router.put('/:id', (req, res) => {
     //lookup for courses
